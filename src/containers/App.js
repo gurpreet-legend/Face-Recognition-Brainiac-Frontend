@@ -7,7 +7,7 @@ import Particles from 'react-particles-js';
 import 'tachyons';
 import './App.css';
 
-const myObj = {
+const myParticlesObj = {
   polygon: {
       enable: true,
       type: 'inside',
@@ -20,9 +20,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <Particles 
-          params={myObj} 
-        /> */}
+        <Particles className= 'particles' 
+          params={myParticlesObj} 
+        />
         <Navigation />
         <Logo />
         <Rank />
