@@ -3,7 +3,7 @@ import React from 'react';
 const Navigation = () => {
     return (
         <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-            <p className='f3 dim underline pointer black pa3'>Sign Out</p>
+            <button className='btn pa2 dim w-10 f5 link pointer ma2'>Sign Out</button>
         </nav>
     )
 }
