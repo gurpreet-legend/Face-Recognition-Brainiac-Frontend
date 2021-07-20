@@ -4,24 +4,31 @@ import Navigation from '../components/Navigation/Navigation';
 import Logo from '../components/Logo/Logo';
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
 import Rank from '../components/Rank/Rank';
+import FaceRecognition from '../components/FaceRecognition/FaceRecognition'
 //Supportive Imports
 import Particles from "react-tsparticles";
 import 'tachyons';
 import './App.css';
 //ML Model Import
+import Clarifai from 'clarifai';
+
+//Creating a Clarifai App
+const app = new Clarifai.App({
+  apiKey: 'ae99589fa35f4d3fa4c813c2186a2e00'  //ADD IT TO .env file LATER !!!!!!!
+ });
 
 //Particles-js object
-const myObj2 = {
+const myObj = {
   fpsLimit: 120,
   interactivity: {
     detectsOn: "canvas",
     events: {
       onClick: {
         enable: true,
-        mode: "push",
+        mode: "repulse",
       },
       onHover: {
-        enable: true,
+        enable: false,
         mode: "repulse",
       },
       
@@ -49,7 +56,7 @@ const myObj2 = {
     links: {
       color: "#ffffff",
       distance: 150,
-      enable: true,
+      enable: false,
       opacity: 0.5,
       width: 1,
     },
@@ -61,7 +68,7 @@ const myObj2 = {
       enable: true,
       outMode: "bounce",
       random: false,
-      speed: 3,
+      speed: 1,
       straight: false,
     },
     number: {
@@ -79,7 +86,7 @@ const myObj2 = {
     },
     size: {
       random: true,
-      value: 2,
+      value: 4,
     },
   },
   detectRetina: true,
@@ -94,7 +101,8 @@ class App extends Component {
     
     //State
     this.state = {
-      input : ''
+      input : '',
+      imageURL : ''
     }
   }
 
@@ -107,13 +115,24 @@ class App extends Component {
     console.log(container);
   }
 
-  //When user enters input 
+  //Event functions
   onInputChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
+    this.setState({input : event.target.value});
   }
 
   onButtonDetect = () => {
-    console.log("Btn clicked.")
+    // console.log("Btn clicked.");
+    this.setState({imageURL : this.state.input})
+    app.models.predict(
+      Clarifai.FACE_DETECT_MODEL,
+      this.state.input)
+      .then( res => {
+      console.log(res)
+      },
+      err => {
+        //There was some error
+      })
   }
 
   render() {
@@ -123,13 +142,13 @@ class App extends Component {
         id="tsparticles"
         init={this.particlesInit}
         loaded={this.particlesLoaded}
-        options={myObj2}
+        options={myObj}
       />
         <Navigation />
         <Logo />
         <Rank />
         <ImageLinkForm onInputChange={this.onInputChange} onButtonDetect={this.onButtonDetect}/>
-        {/* <FaceRecognition /> */}
+        <FaceRecognition imageURL={this.state.imageURL}/>
       </div>
     );
   }  
