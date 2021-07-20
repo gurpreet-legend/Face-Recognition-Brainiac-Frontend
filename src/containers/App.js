@@ -6,8 +6,8 @@ import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
 import Rank from '../components/Rank/Rank';
 import FaceRecognition from '../components/FaceRecognition/FaceRecognition'
 //Supportive Imports
-// import Particles from "react-tsparticles";
-import Particles from 'react-particles-js';
+import Particles from "react-tsparticles";
+// import Particles from 'react-particles-js';
 import 'tachyons';
 import './App.css';
 //ML Model Import
@@ -94,7 +94,12 @@ const myObj = {
 }
 class App extends Component {
   constructor(props) {
-    super(props);   
+    super(props); 
+
+    // Particles-js 
+    this.particlesInit = this.particlesInit.bind(this);
+    this.particlesLoaded = this.particlesLoaded.bind(this);  
+
     //State
     this.state = {
       input : '',
@@ -102,9 +107,17 @@ class App extends Component {
     }
   }
 
+  //Particles-js functions
+  particlesInit(main) {
+    console.log(main);
+  }
+
+  particlesLoaded(container) {
+    console.log(container);
+  }
+//output[0].data.regions[0].region_info.bounding_box
   //Event functions
   onInputChange = (event) => {
-    // console.log(event.target.value);
     this.setState({input : event.target.value});
   }
 
@@ -115,7 +128,11 @@ class App extends Component {
       Clarifai.FACE_DETECT_MODEL,
       this.state.input)
       .then( res => {
-      console.log(res)
+      let regionBoundaries = res.outputs[0].data.regions.map((person,index) => ({
+        id : index,
+        bounding_box : person.region_info.bounding_box
+      }))
+      console.log(regionBoundaries);
       },
       err => {
         //There was some error
