@@ -6,7 +6,8 @@ import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
 import Rank from '../components/Rank/Rank';
 import FaceRecognition from '../components/FaceRecognition/FaceRecognition'
 //Supportive Imports
-import Particles from "react-tsparticles";
+// import Particles from "react-tsparticles";
+import Particles from 'react-particles-js';
 import 'tachyons';
 import './App.css';
 //ML Model Import
@@ -21,7 +22,7 @@ const app = new Clarifai.App({
 const myObj = {
   fpsLimit: 120,
   interactivity: {
-    detectsOn: "canvas",
+    detectsOn: "window",
     events: {
       onClick: {
         enable: true,
@@ -93,26 +94,12 @@ const myObj = {
 }
 class App extends Component {
   constructor(props) {
-    super(props);
-    
-    //Particles-js methods
-    this.particlesInit = this.particlesInit.bind(this);
-    this.particlesLoaded = this.particlesLoaded.bind(this);
-    
+    super(props);   
     //State
     this.state = {
       input : '',
       imageURL : ''
     }
-  }
-
-  //Particles-js required functions 
-  particlesInit(main) {
-    console.log(main);
-  }
-
-  particlesLoaded(container) {
-    console.log(container);
   }
 
   //Event functions
@@ -138,12 +125,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Particles className='particles'
-        id="tsparticles"
-        init={this.particlesInit}
-        loaded={this.particlesLoaded}
-        options={myObj}
-      />
+        <Particles 
+        className='particles'
+        params={myObj} />
         <Navigation />
         <Logo />
         <Rank />
