@@ -106,7 +106,7 @@ class App extends Component {
     this.state = {
       input: "",
       imageURL: "",
-      boxParams: {}
+      boxParams: []
     };
   }
 
@@ -130,42 +130,36 @@ class App extends Component {
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then((res) => {
-        // let myArr = res.outputs[0].data.regions.map(
-        //   person => (person.region_info.bounding_box)
-        // );
-        this.displayFaceBox((this.calculateFaceLocation(res)));
+        let myArr = res.outputs[0].data.regions.map(
+          person => (person.region_info.bounding_box)
+        );
+        this.displayFaceBox((this.calculateFaceLocation(myArr)));
       })
       .catch((err) => console.log(err));
   };
 
   //Facial Box Functions
-  calculateFaceLocation = (data) => {
-    let clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+  calculateFaceLocation = (myArr) => {
+    // let clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     let image = document.getElementById('inputImage');
     let height = Number(image.height);
     let width = Number(image.width);
-    // let boxBoundaries = myArr.map((element)=>{
-    //   return {
-    //     topRow : (element.top_row*height),
-    //     leftCol : (element.left_col*width),
-    //     bottomRow : height - (element.bottom_row*height),
-    //     rightCol : width - (element.right_col*width)
-    //   }
-    // });
-      // return {
-      //   topRow : (myArr[0].top_row*height),
-      //   leftCol : (myArr[0].left_col*width),
-      //   bottomRow : height - (myArr[0].bottom_row*height),
-      //   rightCol : width - (myArr[0].right_col*width)
-      // }
+    let boxBoundaries = myArr.map((element)=>{
       return {
-        topRow : (clarifaiFace.top_row*height),
-        leftCol : (clarifaiFace.left_col*width),
-        bottomRow : height - (clarifaiFace.bottom_row*height),
-        rightCol : width - (clarifaiFace.right_col*width)
+        topRow : (element.top_row*height),
+        leftCol : (element.left_col*width),
+        bottomRow : height - (element.bottom_row*height),
+        rightCol : width - (element.right_col*width)
       }
+    });
+      // return {
+      //   topRow : (clarifaiFace.top_row*height),
+      //   leftCol : (clarifaiFace.left_col*width),
+      //   bottomRow : height - (clarifaiFace.bottom_row*height),
+      //   rightCol : width - (clarifaiFace.right_col*width)
+      // }
 
-    // return boxBoundaries;
+    return boxBoundaries;
   };
 
   displayFaceBox = (boxBoundaries) => {
