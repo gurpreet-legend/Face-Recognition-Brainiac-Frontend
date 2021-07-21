@@ -1,22 +1,24 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
+
 //Imports from Components
-import Navigation from '../components/Navigation/Navigation';
-import Logo from '../components/Logo/Logo';
-import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
-import Rank from '../components/Rank/Rank';
-import FaceRecognition from '../components/FaceRecognition/FaceRecognition'
+import Navigation from "../components/Navigation/Navigation";
+import Logo from "../components/Logo/Logo";
+import ImageLinkForm from "../components/ImageLinkForm/ImageLinkForm";
+import Rank from "../components/Rank/Rank";
+import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
+
 //Supportive Imports
 import Particles from "react-tsparticles";
-// import Particles from 'react-particles-js';
-import 'tachyons';
-import './App.css';
+import "tachyons";
+import "./App.css";
+
 //ML Model Import
-import Clarifai from 'clarifai';
+import Clarifai from "clarifai";
 
 //Creating a Clarifai App
 const app = new Clarifai.App({
-  apiKey: 'ae99589fa35f4d3fa4c813c2186a2e00'  //ADD IT TO .env file LATER !!!!!!!
- });
+  apiKey: "ae99589fa35f4d3fa4c813c2186a2e00", //ADD IT TO .env file LATER !!!!!!!
+});
 
 //Particles-js object
 const myObj = {
@@ -32,7 +34,6 @@ const myObj = {
         enable: false,
         mode: "repulse",
       },
-      
     },
     modes: {
       bubble: {
@@ -91,20 +92,22 @@ const myObj = {
     },
   },
   detectRetina: true,
-}
+};
+
 class App extends Component {
   constructor(props) {
-    super(props); 
+    super(props);
 
-    // Particles-js 
+    // Particles-js
     this.particlesInit = this.particlesInit.bind(this);
-    this.particlesLoaded = this.particlesLoaded.bind(this);  
+    this.particlesLoaded = this.particlesLoaded.bind(this);
 
     //State
     this.state = {
-      input : '',
-      imageURL : ''
-    }
+      input: "",
+      imageURL: "",
+      boxParams: {}
+    };
   }
 
   //Particles-js functions
@@ -115,44 +118,75 @@ class App extends Component {
   particlesLoaded(container) {
     console.log(container);
   }
-//output[0].data.regions[0].region_info.bounding_box
+
   //Event functions
   onInputChange = (event) => {
-    this.setState({input : event.target.value});
-  }
+    this.setState({ input: event.target.value });
+  };
 
   onButtonDetect = () => {
-    // console.log("Btn clicked.");
-    this.setState({imageURL : this.state.input})
-    app.models.predict(
-      Clarifai.FACE_DETECT_MODEL,
-      this.state.input)
-      .then( res => {
-      let regionBoundaries = res.outputs[0].data.regions.map((person,index) => ({
-        id : index,
-        bounding_box : person.region_info.bounding_box
-      }))
-      console.log(regionBoundaries);
-      },
-      err => {
-        //There was some error
+    this.setState({ imageURL: this.state.input });
+
+    app.models
+      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      .then((res) => {
+        // let myArr = res.outputs[0].data.regions.map(
+        //   person => (person.region_info.bounding_box)
+        // );
+        this.displayFaceBox((this.calculateFaceLocation(res)));
       })
+      .catch((err) => console.log(err));
+  };
+
+  //Facial Box Functions
+  calculateFaceLocation = (data) => {
+    let clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+    let image = document.getElementById('inputImage');
+    let height = Number(image.height);
+    let width = Number(image.width);
+    // let boxBoundaries = myArr.map((element)=>{
+    //   return {
+    //     topRow : (element.top_row*height),
+    //     leftCol : (element.left_col*width),
+    //     bottomRow : height - (element.bottom_row*height),
+    //     rightCol : width - (element.right_col*width)
+    //   }
+    // });
+      // return {
+      //   topRow : (myArr[0].top_row*height),
+      //   leftCol : (myArr[0].left_col*width),
+      //   bottomRow : height - (myArr[0].bottom_row*height),
+      //   rightCol : width - (myArr[0].right_col*width)
+      // }
+      return {
+        topRow : (clarifaiFace.top_row*height),
+        leftCol : (clarifaiFace.left_col*width),
+        bottomRow : height - (clarifaiFace.bottom_row*height),
+        rightCol : width - (clarifaiFace.right_col*width)
+      }
+
+    // return boxBoundaries;
+  };
+
+  displayFaceBox = (boxBoundaries) => {
+    this.setState({boxParams : boxBoundaries})
   }
 
   render() {
     return (
       <div className="App">
-        <Particles 
-        className='particles'
-        params={myObj} />
+        <Particles className="particles" params={myObj} />
         <Navigation />
         <Logo />
         <Rank />
-        <ImageLinkForm onInputChange={this.onInputChange} onButtonDetect={this.onButtonDetect}/>
-        <FaceRecognition imageURL={this.state.imageURL}/>
+        <ImageLinkForm
+          onInputChange={this.onInputChange}
+          onButtonDetect={this.onButtonDetect}
+        />
+        <FaceRecognition boxParams={this.state.boxParams} imageURL={this.state.imageURL} />
       </div>
     );
-  }  
+  }
 }
 
 export default App;
