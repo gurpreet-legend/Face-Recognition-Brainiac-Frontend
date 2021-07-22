@@ -6,6 +6,7 @@ import Logo from "../components/Logo/Logo";
 import ImageLinkForm from "../components/ImageLinkForm/ImageLinkForm";
 import Rank from "../components/Rank/Rank";
 import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
+import Signin from '../components/Signin/Signin';
 
 //Supportive Imports
 import Particles from "react-tsparticles";
@@ -140,7 +141,6 @@ class App extends Component {
 
   //Facial Box Functions
   calculateFaceLocation = (myArr) => {
-    // let clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     let image = document.getElementById('inputImage');
     let height = Number(image.height);
     let width = Number(image.width);
@@ -152,12 +152,6 @@ class App extends Component {
         rightCol : width - (element.right_col*width)
       }
     });
-      // return {
-      //   topRow : (clarifaiFace.top_row*height),
-      //   leftCol : (clarifaiFace.left_col*width),
-      //   bottomRow : height - (clarifaiFace.bottom_row*height),
-      //   rightCol : width - (clarifaiFace.right_col*width)
-      // }
 
     return boxBoundaries;
   };
@@ -171,6 +165,7 @@ class App extends Component {
       <div className="App">
         <Particles className="particles" params={myObj} />
         <Navigation />
+        <Signin />
         <Logo />
         <Rank />
         <ImageLinkForm
