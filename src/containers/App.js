@@ -109,7 +109,15 @@ class App extends Component {
       imageURL: "",
       boxParams: [],
       route: "signin",
-      isSignedIn: false
+      isSignedIn: false,
+      user: {
+        id:'',
+        name: '',
+        email: '',
+        password: '',
+        enteries: 0,
+        joined: ''
+      }
     };
   }
 
@@ -151,6 +159,17 @@ class App extends Component {
     this.setState({route: route})
   }
 
+  loadUser = (registeredUser) => {
+    this.setState({user: {
+      id: registeredUser.id,
+      name: registeredUser.name,
+      email: registeredUser.email,
+      password: registeredUser.password,
+      enteries: registeredUser.enteries,
+      joined: registeredUser.joined
+    }})
+  }
+
   //Facial Box Functions
   calculateFaceLocation = (myArr) => {
     let image = document.getElementById('inputImage');
@@ -189,7 +208,7 @@ class App extends Component {
           </div> :
           (this.state.route=='signin' ?
           <Signin onRouteChange = {this.onRouteChange} />:
-          <Register onRouteChange={this.onRouteChange} /> 
+          <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} /> 
           )
         }
       </div>
