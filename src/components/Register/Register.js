@@ -21,7 +21,7 @@ const Register = ({onRouteChange}) => {
                 </div>
                 </div>
                 <div className="">
-                    <input className="btn b ph3 pv2 input-reset br2 dim pointer f6 dib" onClick={()=>onRouteChange('home')} type="submit" value="Create Account" />
+                    <input className="btn b ph3 pv2 input-reset br2 dim pointer f6 dib" onClick={()=>onRouteChange('home')} type="button" value="Create Account" />
                 </div>
             </form>
         </article>

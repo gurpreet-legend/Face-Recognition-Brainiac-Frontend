@@ -108,7 +108,7 @@ class App extends Component {
       input: "",
       imageURL: "",
       boxParams: [],
-      route: "signout",
+      route: "signin",
       isSignedIn: false
     };
   }
@@ -187,9 +187,9 @@ class App extends Component {
             />
             <FaceRecognition boxParams={this.state.boxParams} imageURL={this.state.imageURL} />
           </div> :
-          (this.state.route=='register' ?
-          <Register onRouteChange={this.onRouteChange} /> :
-          <Signin onRouteChange = {this.onRouteChange} />
+          (this.state.route=='signin' ?
+          <Signin onRouteChange = {this.onRouteChange} />:
+          <Register onRouteChange={this.onRouteChange} /> 
           )
         }
       </div>

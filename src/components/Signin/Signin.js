@@ -19,10 +19,10 @@ class Signin extends React.Component  {
         this.setState({signInPassword : event.target.value})
     };
 
-    onSubmitSignIn = (event) => {
+    onSubmitSignIn = () => {
         fetch("http://localhost:3000/signin",{
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 email: this.state.signInEmail,
                 password: this.state.signInPassword
@@ -30,7 +30,8 @@ class Signin extends React.Component  {
         })
         .then(res => res.json())
         .then(data => {
-            if(data == 'Success'){
+            console.log(data);
+            if(data == "success"){
                 this.props.onRouteChange('home');
             }
         });
@@ -48,8 +49,8 @@ class Signin extends React.Component  {
                             onChange={this.onEmailChange}
                             className="email input pa2 input-reset bg-transparent w-100 f6" 
                             type="email" 
-                            name="email-address"  
-                            id="email-address" 
+                            name="email"  
+                            id="email" 
                         />
                     </div>
                     <div className="mv3">
@@ -64,7 +65,7 @@ class Signin extends React.Component  {
                     </div>
                     </div>
                     <div className="">
-                    <input className="btn b ph3 pv2 input-reset br2 dim pointer f6 dib" onClick={this.onSubmitSignIn} type="submit" value="Sign in" />
+                    <input className="btn b ph3 pv2 input-reset br2 dim pointer f6 dib" onClick={this.onSubmitSignIn} type="button" value="Sign in" />
                     </div>
                     <div className="lh-copy mt3">
                         <p className="f6 link dim black db pointer" onClick={() => this.props.onRouteChange('register')}>Register</p>
