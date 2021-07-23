@@ -141,6 +141,11 @@ class App extends Component {
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then((res) => {
+        if(res){
+          fetch('http://localhost:3000',{
+
+          })
+        }
         let myArr = res.outputs[0].data.regions.map(
           person => (person.region_info.bounding_box)
         );
@@ -159,14 +164,15 @@ class App extends Component {
     this.setState({route: route})
   }
 
-  loadUser = (registeredUser) => {
+  //Loading registered user
+  loadUser = (loadedUser) => {
     this.setState({user: {
-      id: registeredUser.id,
-      name: registeredUser.name,
-      email: registeredUser.email,
-      password: registeredUser.password,
-      enteries: registeredUser.enteries,
-      joined: registeredUser.joined
+      id: loadedUser.id,
+      name: loadedUser.name,
+      email: loadedUser.email,
+      password: loadedUser.password,
+      enteries: loadedUser.enteries,
+      joined: loadedUser.joined
     }})
   }
 
@@ -199,7 +205,7 @@ class App extends Component {
         {this.state.route == 'home' ? 
           <div>
             <Logo />
-            <Rank />
+            <Rank name={this.state.user.name} enteries={this.state.user.enteries}/>
             <ImageLinkForm
               onInputChange={this.onInputChange}
               onButtonDetect={this.onButtonDetect}
@@ -207,7 +213,7 @@ class App extends Component {
             <FaceRecognition boxParams={this.state.boxParams} imageURL={this.state.imageURL} />
           </div> :
           (this.state.route=='signin' ?
-          <Signin onRouteChange = {this.onRouteChange} />:
+          <Signin loadUser={this.loadUser} onRouteChange = {this.onRouteChange} />:
           <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} /> 
           )
         }
