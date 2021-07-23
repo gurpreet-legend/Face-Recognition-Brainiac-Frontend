@@ -95,7 +95,6 @@ const myObj = {
   },
   detectRetina: true,
 };
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -151,10 +150,6 @@ class App extends Component {
     }
     this.setState({route: route})
   }
-
-  // isSignedIn = () => {
-    
-  // }
 
   //Facial Box Functions
   calculateFaceLocation = (myArr) => {
