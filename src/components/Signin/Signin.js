@@ -30,9 +30,13 @@ class Signin extends React.Component  {
         })
         .then(res => res.json())
         .then(user => {
-            if(user.id){
+            if(user.id) //We are checking for id as if it fails then the string responded by the server will be treated as true(always)
+            {
                 this.props.loadUser(user);
                 this.props.onRouteChange('home');
+            }
+            else{
+                alert(`Wrong credentials`);
             }
         });
     }
