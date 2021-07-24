@@ -95,6 +95,22 @@ const myObj = {
   },
   detectRetina: true,
 };
+
+const initialState = {
+  input: "",
+  imageURL: "",
+  boxParams: [],
+  route: "signout",
+  isSignedIn: false,
+  user: {
+    id:'',
+    name: '',
+    email: '',
+    password: '',
+    enteries: 0,
+    joined: ''
+  }
+}
 class App extends Component {
   constructor(props) {
     super(props);
@@ -104,21 +120,7 @@ class App extends Component {
     this.particlesLoaded = this.particlesLoaded.bind(this);
 
     //State
-    this.state = {
-      input: "",
-      imageURL: "",
-      boxParams: [],
-      route: "signin",
-      isSignedIn: false,
-      user: {
-        id:'',
-        name: '',
-        email: '',
-        password: '',
-        enteries: 0,
-        joined: ''
-      }
-    };
+    this.state = initialState;
   }
 
   //Particles-js functions
@@ -153,6 +155,7 @@ class App extends Component {
             .then(count => {
               this.setState(Object.assign(this.state.user, {enteries: count} ));
             })
+            .catch(console.log)
         }
         let myArr = res.outputs[0].data.regions.map(
           person => (person.region_info.bounding_box)
@@ -166,8 +169,8 @@ class App extends Component {
     if(route == "home") {
       this.setState({isSignedIn: true})
     }
-    else{
-      this.setState({isSignedIn: false})
+    else if(route =="signout"){
+      this.setState(initialState)
     }
     this.setState({route: route})
   }
@@ -220,9 +223,9 @@ class App extends Component {
             />
             <FaceRecognition boxParams={this.state.boxParams} imageURL={this.state.imageURL} />
           </div> :
-          (this.state.route=='signin' ?
-          <Signin loadUser={this.loadUser} onRouteChange = {this.onRouteChange} />:
-          <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} /> 
+          (this.state.route=='register' ?
+          <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} /> :
+          <Signin loadUser={this.loadUser} onRouteChange = {this.onRouteChange} />
           )
         }
       </div>
