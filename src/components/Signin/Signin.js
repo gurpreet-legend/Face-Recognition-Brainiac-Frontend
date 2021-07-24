@@ -50,7 +50,8 @@ class Signin extends React.Component  {
                             className="email input pa2 input-reset bg-transparent w-100 f6" 
                             type="email" 
                             name="email"  
-                            id="email" 
+                            id="email"
+                            required 
                         />
                     </div>
                     <div className="mv3">
@@ -60,7 +61,8 @@ class Signin extends React.Component  {
                             className="password input pa2 input-reset bg-transparent w-100 f6" 
                             type="password" 
                             name="password"  
-                            id="password" 
+                            id="password"
+                            required 
                         />
                     </div>
                     </div>

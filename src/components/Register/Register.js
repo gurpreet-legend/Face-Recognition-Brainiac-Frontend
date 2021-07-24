@@ -55,7 +55,9 @@ class Register extends React.Component {
                         className="email input pa2 input-reset bg-transparent w-100 f6" 
                         type="text" 
                         name="user-name"  
-                        id="user-name" />
+                        id="user-name" 
+                        required
+                        />
                     </div>
                     <div className="mt3">
                         <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
@@ -64,7 +66,9 @@ class Register extends React.Component {
                         className="email input pa2 input-reset bg-transparent w-100 f6" 
                         type="email" 
                         name="email-address"  
-                        id="email-address" />
+                        id="email-address" 
+                        required
+                        />
                     </div>
                     <div className="mv3">
                         <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
@@ -73,7 +77,9 @@ class Register extends React.Component {
                         className="password input pa2 input-reset bg-transparent w-100 f6" 
                         type="password" 
                         name="password"  
-                        id="password" />
+                        id="password" 
+                        required
+                        />
                     </div>
                     </div>
                     <div className="">
