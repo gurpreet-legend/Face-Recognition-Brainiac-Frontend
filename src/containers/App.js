@@ -131,7 +131,7 @@ class App extends Component {
 
   onButtonDetect = () => {
     this.setState({ imageURL: this.state.input });
-    fetch('https://whispering-gorge-97527.herokuapp.com//imageurl' , {
+    fetch('https://whispering-gorge-97527.herokuapp.com/imageurl' , {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -141,7 +141,7 @@ class App extends Component {
     .then(res => res.json())
     .then((res) => {
       if(res){
-        fetch('https://whispering-gorge-97527.herokuapp.com/:3000/image',{
+        fetch('https://whispering-gorge-97527.herokuapp.com/image',{
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
