@@ -14,14 +14,6 @@ import Particles from "react-tsparticles";
 import "tachyons";
 import "./App.css";
 
-//ML Model Import
-import Clarifai from "clarifai";
-
-//Creating a Clarifai App
-const app = new Clarifai.App({
-  apiKey: "ae99589fa35f4d3fa4c813c2186a2e00", //ADD IT TO .env file LATER !!!!!!!
-});
-
 //Particles-js object
 const myObj = {
   fpsLimit: 120,
@@ -139,30 +131,35 @@ class App extends Component {
 
   onButtonDetect = () => {
     this.setState({ imageURL: this.state.input });
-
-    app.models
-      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-      .then((res) => {
-        if(res){
-          fetch('http://localhost:3000/image',{
-            method: 'put',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                id: this.state.user.id
-            })
-          })
-            .then(res => res.json())
-            .then(count => {
-              this.setState(Object.assign(this.state.user, {enteries: count} ));
-            })
-            .catch(console.log)
-        }
-        let myArr = res.outputs[0].data.regions.map(
-          person => (person.region_info.bounding_box)
-        );
-        this.displayFaceBox((this.calculateFaceLocation(myArr)));
+    fetch('http://localhost:3000/imageurl' , {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        input: this.state.input
       })
-      .catch((err) => console.log(err));
+    })
+    .then(res => res.json())
+    .then((res) => {
+      if(res){
+        fetch('http://localhost:3000/image',{
+          method: 'put',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+              id: this.state.user.id
+          })
+        })
+          .then(res => res.json())
+          .then(count => {
+            this.setState(Object.assign(this.state.user, {enteries: count} ));
+          })
+          .catch(console.log)
+      }
+      let myArr = res.outputs[0].data.regions.map(
+        person => (person.region_info.bounding_box)
+      );
+      this.displayFaceBox((this.calculateFaceLocation(myArr)));
+    })
+    .catch((err) => console.log(err));
   };
 
   onRouteChange = (route) => {
