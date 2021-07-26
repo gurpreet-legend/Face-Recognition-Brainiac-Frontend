@@ -22,5 +22,5 @@
 > By using [react-tilt](https://www.npmjs.com/package/react-tilt) , I have made the Brainiac logo more interactive and lively.<br>
 > Used [tachyons](https://www.npmjs.com/package/tachyons) for easy quick CSS changes.
 
- I hope you will like it and do give it a star as per your liking. Untill then , happy coding ... 👨‍💻
+ I hope you will like it and do give it a star as per your liking. Until then , cya and  happy coding ... 👨‍💻
 
