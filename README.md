@@ -18,5 +18,5 @@
 
 ## 🎨 Added Frontend Features
 > I have implemented [react-tsparticles](https://www.npmjs.com/package/react-tsparticles) for the background to make it more interactive and expressive.<br>
-> By using [react-tilt](https://www.npmjs.com/package/react-tilt) , I have made the Brainiac logo more interactive and lively.
+> By using [react-tilt](https://www.npmjs.com/package/react-tilt) , I have made the Brainiac logo more interactive and lively.<br>
 > Used [tachyons](https://www.npmjs.com/package/tachyons) for easy quick CSS changes.
