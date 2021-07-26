@@ -17,5 +17,5 @@
 > All the files have been deployed on [Heroku](https://www.heroku.com/) server, including frontend, bacckend and database.
 
 ## 🎨 Added Frontend Features
-> I have implemented [react-tsparticles](https://www.npmjs.com/package/react-tsparticles) for the background to make it more interactive and expressive
+> I have implemented [react-tsparticles](https://www.npmjs.com/package/react-tsparticles) for the background to make it more interactive and expressive.<br>
 > By using [react-tilt](https://www.npmjs.com/package/react-tilt) , I have made the Brainiac logo more interactive and lively.
