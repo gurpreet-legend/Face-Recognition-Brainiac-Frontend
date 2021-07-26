@@ -14,7 +14,7 @@
 > Every password has been encrypted by [bcrypt](https://www.npmjs.com/package/bcrypt) hash and then stored in the database to avoid any type of data breach
 
 ## 🌍 Deployment
-> All the files have been deployed on [Heroku](https://www.heroku.com/) server, including frontend, bacckend and database.
+> All the files have been deployed on [Heroku](https://www.heroku.com/) server, including frontend, backend and database.
 
 ## 🎨 Added Frontend Features
 > I have implemented [react-tsparticles](https://www.npmjs.com/package/react-tsparticles) for the background to make it more interactive and expressive.<br>
