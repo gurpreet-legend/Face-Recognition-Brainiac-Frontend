@@ -1,4 +1,5 @@
 # Face Detection Brainiac
+>It's my first full-stack project. You can upload any image including human face and my application will detect the location of face using a Face Detection Machine Learning model and put a blue box around the image. It allows you to Sign-in and Register yourself on my application as well and it will secure your password as an encrypted hash. The host link has been provided below :
 
 ## 🔗 Host link
 > <a href="https://face-detection-brainiac.herokuapp.com/" target="_blank">https://face-detection-brainiac.herokuapp.com/</a>
@@ -20,3 +21,6 @@
 > I have implemented [react-tsparticles](https://www.npmjs.com/package/react-tsparticles) for the background to make it more interactive and expressive.<br>
 > By using [react-tilt](https://www.npmjs.com/package/react-tilt) , I have made the Brainiac logo more interactive and lively.<br>
 > Used [tachyons](https://www.npmjs.com/package/tachyons) for easy quick CSS changes.
+
+ I hope you will like it and do give it a star as per your liking. Untill then , happy coding ... 👨‍💻
+
