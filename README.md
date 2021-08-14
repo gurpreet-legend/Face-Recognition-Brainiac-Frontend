@@ -1,4 +1,4 @@
-# Face Detection Brainiac
+# Face Detection Brainiac - Frontend
 >It's my first full-stack project. You can upload any image including human face and my application will detect the location of face using a Face Detection Machine Learning model and put a blue box around the image. It allows you to Sign-in and Register yourself on my application as well and it will secure your password as an encrypted hash. The host link has been provided below :
 
 ## 🔗 Host link
